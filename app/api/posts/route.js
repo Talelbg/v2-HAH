@@ -1,13 +1,12 @@
-
 import { neon } from '@neondatabase/serverless';
 import { NextResponse } from 'next/server';
 
-export const revalidate = 0; // Ensure dynamic data fetching
+export const revalidate = 0; // Ensure dynamic data fetching on every request
 
 export async function GET(request) {
   try {
     if (!process.env.DATABASE_URL) {
-      return NextResponse.json({ error: 'DATABASE_URL environment variable is not set.' }, { status: 500 });
+      throw new Error('DATABASE_URL environment variable is not set.');
     }
     const sql = neon(process.env.DATABASE_URL);
     const posts = await sql`SELECT * FROM posts ORDER BY id ASC;`;

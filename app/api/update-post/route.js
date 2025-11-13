@@ -1,11 +1,10 @@
-
 import { neon } from '@neondatabase/serverless';
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   try {
     if (!process.env.DATABASE_URL) {
-      return NextResponse.json({ error: 'DATABASE_URL environment variable is not set.' }, { status: 500 });
+      throw new Error('DATABASE_URL environment variable is not set.');
     }
     
     const { id, content } = await request.json();

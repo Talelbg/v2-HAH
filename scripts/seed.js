@@ -1,4 +1,3 @@
-
 const { neon } = require('@neondatabase/serverless');
 
 async function seed() {
